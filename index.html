@@ -3,106 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Valentine ❤️</title>
+  <title>Patient Case – Valentine Edition ❤️</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      align-items: center;
+      background: linear-gradient(135deg, #fbc2eb, #f9d423);
       font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
     }
     .card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      max-width: 350px;
-      z-index: 2;
+      display: none;
+      animation: fadeIn 0.5s ease;
     }
-    h1 {
-      color: #e63946;
-      margin-bottom: 10px;
-    }
-    p {
-      color: #444;
-      font-size: 16px;
+    .card.active { display: block; }
+    h1 { margin-top: 0; }
+    .tag {
+      display: inline-block;
+      background: #ffe6eb;
+      color: #d6336c;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-bottom: 12px;
     }
     button {
+      width: 100%;
+      padding: 14px;
       margin-top: 20px;
-      padding: 12px 20px;
       border: none;
       border-radius: 30px;
       background: #e63946;
-      color: white;
+      color: #fff;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.2s, background 0.2s;
     }
-    button:hover {
-      transform: scale(1.05);
-      background: #d62828;
+    .row { display: flex; gap: 10px; }
+    .secondary {
+      background: #f1f1f1;
+      color: #333;
     }
-    .hidden {
-      display: none;
+    img {
+      width: 100%;
+      border-radius: 16px;
     }
-    .hearts span {
-      position: absolute;
-      bottom: -20px;
-      color: #e63946;
-      font-size: 20px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(0.8); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+      to { opacity: 1; transform: translateY(0); }
+    }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <div class="card" id="card">
-    <h1>Hey ❤️</h1>
-    <p>Someone has something special to tell you...</p>
-    <button onclick="revealMessage()">Tap to open 💌</button>
+  <!-- PAGE 1 -->
+  <div class="card active">
+    <h1>Patient Case File</h1>
+    <span class="tag">Confidential</span>
+    <p><strong>Patient:</strong> One (1) very lucky boyfriend</p>
+    <p><strong>Attending Physician:</strong> Shweta Sarthy 🩺</p>
+    <button onclick="next()">Open Case</button>
+  </div>
 
-    <div id="message" class="hidden">
-      <h1>Happy Valentine’s Day 💖</h1>
-      <p>
-        From silly fights to quiet understanding,
-        from chaos to comfort —
-        you make everything feel worth it.
-      </p>
-      <p><strong>Will you be my Valentine? 🌹</strong></p>
+  <!-- PAGE 2 -->
+  <div class="card">
+    <h1>Chief Complaint</h1>
+    <span class="tag">Ongoing</span>
+    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future doctor.</p>
+    <button onclick="next()">Review Symptoms</button>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="card">
+    <h1>Symptoms</h1>
+    <span class="tag">Well Documented</span>
+    <ul>
+      <li>Smiling for no reason</li>
+      <li>Feeling calm just by hearing your voice</li>
+      <li>Wanting to share every good moment with you</li>
+      <li>Complete certainty that you're my favorite person</li>
+    </ul>
+    <button onclick="next()">Assessment</button>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="card">
+    <h1>Assessment</h1>
+    <span class="tag">Stable</span>
+    <p>Condition appears chronic and irreversible.</p>
+    <p>Patient reports feeling safe, supported, and genuinely happy in your presence.</p>
+    <button onclick="next()">Final Recommendation</button>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="card">
+    <h1>Final Recommendation</h1>
+    <span class="tag">High Priority</span>
+    <p>Proceed with Valentine’s Day together.</p>
+    <p>Laugh a lot.</p>
+    <p>Eat something good with patient.</p>
+    <p><strong>Will you be Patient’s Valentine?</strong></p>
+    <div class="row">
+      <button onclick="accept()">Accept ❤️</button>
+      <button class="secondary" onclick="reject()">Reject ❌</button>
     </div>
   </div>
 
-  <div class="hearts" id="hearts"></div>
+  <!-- PAGE 6 -->
+  <div class="card" id="reject">
+    <h1>Error 404: Option Not Found</h1>
+    <span class="tag">Action Forbidden</span>
+    <p>Wait! Your medical license doesn’t cover rejection of this specific patient.</p>
+    <p>Look how sad he'll be:</p>
+    <img id="sad1" loading="lazy" />
+    <img id="sad2" loading="lazy" style="margin-top:10px" />
+    <button onclick="goBack()">Reconsider ❤️</button>
+  </div>
+
+  <!-- PAGE 7 -->
+  <div class="card" id="accept">
+    <h1>Case Closed</h1>
+    <span class="tag">Approved</span>
+    <p>Recommendation accepted.</p>
+    <p>Prognosis: <strong>Extremely good.</strong></p>
+    <p>Thank you, Doctor ❤️</p>
+    <button onclick="alert('Treatment Plan: Unlimited love, laughter, and food 🍕❤️')">View Treatment Plan</button>
+  </div>
 
   <script>
-    function revealMessage() {
-      document.querySelector('button').style.display = 'none';
-      document.getElementById('message').classList.remove('hidden');
-      startHearts();
+    const cards = document.querySelectorAll('.card');
+    let index = 0;
+
+    // preload heavy assets after first interaction
+    const rejectImgs = [
+      'https://media.tenor.com/8lP8J0Q5Q8kAAAAC/crying-baby.gif',
+      'https://media.tenor.com/_9Nw0Gq7kX8AAAAC/sad-kitten.gif'
+    ];
+
+    function preloadReject() {
+      rejectImgs.forEach(src => {
+        const i = new Image();
+        i.src = src;
+      });
     }
 
-    function startHearts() {
-      const heartsContainer = document.getElementById('hearts');
-      setInterval(() => {
-        const heart = document.createElement('span');
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-        heartsContainer.appendChild(heart);
-        setTimeout(() => heart.remove(), 7000);
-      }, 300);
+    function next() {
+      cards[index].classList.remove('active');
+      index++;
+      cards[index].classList.add('active');
+      preloadReject();
+    }
+    function reject() {
+      cards[index].classList.remove('active');
+      document.getElementById('sad1').src = rejectImgs[0];
+      document.getElementById('sad2').src = rejectImgs[1];
+      document.getElementById('reject').classList.add('active');
+    }
+    function accept() {
+      cards[index].classList.remove('active');
+      document.getElementById('accept').classList.add('active');
+    }
+    function goBack() {
+      document.getElementById('reject').classList.remove('active');
+      cards[index].classList.add('active');
     }
   </script>
 
