@@ -23,7 +23,7 @@
       padding: 28px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       display: none;
-      animation: fadeIn 0.5s ease;
+      animation: fadeIn 0.4s ease;
     }
     .card.active { display: block; }
     h1 { margin-top: 0; }
@@ -52,17 +52,9 @@
       background: #f1f1f1;
       color: #333;
     }
-    img {
-      width: 100%;
-      border-radius: 16px;
-    }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-      to { opacity: 1; transform: translateY(0); }
-    }
-      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -73,16 +65,16 @@
     <h1>Patient Case File</h1>
     <span class="tag">Confidential</span>
     <p><strong>Patient:</strong> One (1) very lucky boyfriend</p>
-    <p><strong>Attending Physician:</strong> Shweta Sarthy 🩺</p>
-    <button onclick="next()">Open Case</button>
+    <p><strong>Attending Physician:</strong> Akanksha Raidas 🩺</p>
+    <button onclick="goNext()">Open Case</button>
   </div>
 
   <!-- PAGE 2 -->
   <div class="card">
     <h1>Chief Complaint</h1>
     <span class="tag">Ongoing</span>
-    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future doctor.</p>
-    <button onclick="next()">Review Symptoms</button>
+    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future wife</p>
+    <button onclick="goNext()">Review Symptoms</button>
   </div>
 
   <!-- PAGE 3 -->
@@ -93,18 +85,18 @@
       <li>Smiling for no reason</li>
       <li>Feeling calm just by hearing your voice</li>
       <li>Wanting to share every good moment with you</li>
-      <li>Complete certainty that you're my favorite person</li>
+      <li>Complete certainty that you are my favorite person</li>
     </ul>
-    <button onclick="next()">Assessment</button>
+    <button onclick="goNext()">Assessment</button>
   </div>
 
   <!-- PAGE 4 -->
   <div class="card">
     <h1>Assessment</h1>
     <span class="tag">Stable</span>
-    <p>Condition appears chronic and irreversible.</p>
-    <p>Patient reports feeling safe, supported, and genuinely happy in your presence.</p>
-    <button onclick="next()">Final Recommendation</button>
+    <p>Condition appears chronic and irreversible</p>
+    <p>Patient reports feeling safe, supported, and genuinely happy in your presence</p>
+    <button onclick="goNext()">Final Recommendation</button>
   </div>
 
   <!-- PAGE 5 -->
@@ -125,10 +117,8 @@
   <div class="card" id="reject">
     <h1>Error 404: Option Not Found</h1>
     <span class="tag">Action Forbidden</span>
-    <p>Wait! Your medical license doesn’t cover rejection of this specific patient.</p>
-    <p>Look how sad he'll be:</p>
-    <img id="sad1" loading="lazy" />
-    <img id="sad2" loading="lazy" style="margin-top:10px" />
+    <p>Rejection is not supported for this patient.</p>
+    <p>Please reconsider and continue treatment with kindness ❤️</p>
     <button onclick="goBack()">Reconsider ❤️</button>
   </div>
 
@@ -143,42 +133,32 @@
   </div>
 
   <script>
-    const cards = document.querySelectorAll('.card');
+    // All cards except special outcome pages follow normal flow
+    const cards = document.querySelectorAll('.card:not(#reject):not(#accept)');
     let index = 0;
 
-    // preload heavy assets after first interaction
-    const rejectImgs = [
-      'https://media.tenor.com/8lP8J0Q5Q8kAAAAC/crying-baby.gif',
-      'https://media.tenor.com/_9Nw0Gq7kX8AAAAC/sad-kitten.gif'
-    ];
+    window.goNext = function () {
+      if (index < cards.length - 1) {
+        cards[index].classList.remove('active');
+        index++;
+        cards[index].classList.add('active');
+      }
+    };
 
-    function preloadReject() {
-      rejectImgs.forEach(src => {
-        const i = new Image();
-        i.src = src;
-      });
-    }
-
-    function next() {
+    window.reject = function () {
       cards[index].classList.remove('active');
-      index++;
-      cards[index].classList.add('active');
-      preloadReject();
-    }
-    function reject() {
-      cards[index].classList.remove('active');
-      document.getElementById('sad1').src = rejectImgs[0];
-      document.getElementById('sad2').src = rejectImgs[1];
       document.getElementById('reject').classList.add('active');
-    }
-    function accept() {
+    };
+
+    window.accept = function () {
       cards[index].classList.remove('active');
       document.getElementById('accept').classList.add('active');
-    }
-    function goBack() {
+    };
+
+    window.goBack = function () {
       document.getElementById('reject').classList.remove('active');
       cards[index].classList.add('active');
-    }
+    };
   </script>
 
 </body>
