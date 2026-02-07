@@ -65,7 +65,7 @@
     <h1>Patient Case File</h1>
     <span class="tag">Confidential</span>
     <p><strong>Patient:</strong> One (1) very lucky boyfriend</p>
-    <p><strong>Attending Physician:</strong> Akanksha Raidas 🩺</p>
+    <p><strong>Attending Physician:</strong> Shweta Sarthy 🩺</p>
     <button onclick="goNext()">Open Case</button>
   </div>
 
@@ -73,29 +73,29 @@
   <div class="card">
     <h1>Chief Complaint</h1>
     <span class="tag">Ongoing</span>
-    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future wife</p>
+    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future doctor.</p>
     <button onclick="goNext()">Review Symptoms</button>
   </div>
 
-  <!-- PAGE 3 -->
+    <!-- PAGE 3 -->
   <div class="card">
     <h1>Symptoms</h1>
-    <span class="tag">Well Documented</span>
-    <ul>
-      <li>Smiling for no reason</li>
-      <li>Feeling calm just by hearing your voice</li>
-      <li>Wanting to share every good moment with you</li>
-      <li>Complete certainty that you are my favorite person</li>
-    </ul>
-    <button onclick="goNext()">Assessment</button>
+    <span class="tag">Entered by Physician</span>
+    <p><em>Clinical observations recorded during consultation:</em></p>
+
+    <textarea id="doctorNotes"
+      placeholder="Enter clinical observations here..."
+      style="width:100%;height:120px;border-radius:12px;padding:12px;border:1px solid #ddd;resize:none;"></textarea>
+
+    <button onclick="saveSymptoms()">Save Clinical Notes 🩺</button>
   </div>
 
   <!-- PAGE 4 -->
   <div class="card">
     <h1>Assessment</h1>
     <span class="tag">Stable</span>
-    <p>Condition appears chronic and irreversible</p>
-    <p>Patient reports feeling safe, supported, and genuinely happy in your presence</p>
+    <p>Condition appears chronic and irreversible.</p>
+    <p>Patient reports feeling safe, supported, and genuinely happy in your presence.</p>
     <button onclick="goNext()">Final Recommendation</button>
   </div>
 
@@ -123,43 +123,110 @@
   </div>
 
   <!-- PAGE 7 -->
+    <!-- PAGE 7 -->
   <div class="card" id="accept">
     <h1>Case Closed</h1>
     <span class="tag">Approved</span>
     <p>Recommendation accepted.</p>
     <p>Prognosis: <strong>Extremely good.</strong></p>
     <p>Thank you, Doctor ❤️</p>
-    <button onclick="alert('Treatment Plan: Unlimited love, laughter, and food 🍕❤️')">View Treatment Plan</button>
+    <button onclick="showPrescription()">View Treatment Plan</button>
   </div>
 
-  <script>
-    // All cards except special outcome pages follow normal flow
-    const cards = document.querySelectorAll('.card:not(#reject):not(#accept)');
-    let index = 0;
+  <!-- PAGE 8 : PRESCRIPTION -->
+  <div class="card" id="prescription">
+    <h1>💊 Love Prescription</h1>
+    <span class="tag">Valid for Lifetime</span>
+    <p><strong>Patient Name:</strong> Us 💑</p>
+    <p><strong>Prescribed By:</strong> Dr. Shweta Sarthy 🩺</p>
+    <hr />
+    <p>✔ 2 hugs daily (minimum)</p>
+    <p>✔ 1 long conversation before sleep</p>
+    <p>✔ Unlimited smiles & teasing</p>
+    <p>✔ Food dates as required 🍕🍨</p>
+    <p>✔ Hand-holding during walks</p>
+    <hr />
+    <p><strong>Side Effects:</strong> Happiness, comfort, addiction 😌</p>
+    <p><strong>Refill:</strong> Automatically renewed forever ♾️</p>
+    <button onclick="restart()">Restart Case 🔁</button>
+  </div>
 
-    window.goNext = function () {
-      if (index < cards.length - 1) {
-        cards[index].classList.remove('active');
-        index++;
-        cards[index].classList.add('active');
-      }
-    };
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    window.reject = function () {
+  const firebaseConfig = {
+    apiKey: "AIzaSyByua7GE9rFgaVB_rt5AbUMbMvVLLOV-pc",
+    authDomain: "valentine-30518.firebaseapp.com",
+    projectId: "valentine-30518",
+    storageBucket: "valentine-30518.firebasestorage.app",
+    messagingSenderId: "984668185645",
+    appId: "1:984668185645:web:0e8ca0cdfcba9c2e7084a4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const cards = document.querySelectorAll('.card:not(#reject):not(#accept):not(#prescription)');
+  let index = 0;
+
+  window.goNext = function () {
+    if (index < cards.length - 1) {
       cards[index].classList.remove('active');
-      document.getElementById('reject').classList.add('active');
-    };
-
-    window.accept = function () {
-      cards[index].classList.remove('active');
-      document.getElementById('accept').classList.add('active');
-    };
-
-    window.goBack = function () {
-      document.getElementById('reject').classList.remove('active');
+      index++;
       cards[index].classList.add('active');
-    };
-  </script>
+    }
+  };
+
+  window.reject = function () {
+    cards[index].classList.remove('active');
+    document.getElementById('reject').classList.add('active');
+  };
+
+  window.accept = function () {
+    cards[index].classList.remove('active');
+    document.getElementById('accept').classList.add('active');
+  };
+
+  window.goBack = function () {
+    document.getElementById('reject').classList.remove('active');
+    cards[index].classList.add('active');
+  };
+
+  window.showPrescription = function () {
+    document.getElementById('accept').classList.remove('active');
+    document.getElementById('prescription').classList.add('active');
+  };
+
+  window.restart = function () {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    index = 0;
+    cards[index].classList.add('active');
+  };
+
+  window.saveSymptoms = async function () {
+    const notes = document.getElementById('doctorNotes').value.trim();
+
+    if (!notes) {
+      alert('Please enter clinical notes 🩺');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'symptoms'), {
+        notes: notes,
+        createdAt: serverTimestamp(),
+        source: 'doctor-entry'
+      });
+
+      alert('Clinical notes securely saved ❤️');
+      goNext();
+    } catch (e) {
+      console.error(e);
+      alert('Error saving notes 😢');
+    }
+  };
+</script>
 
 </body>
 </html>
