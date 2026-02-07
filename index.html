@@ -1,231 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Patient Case – Valentine Edition ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #fbc2eb, #f9d423);
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-    }
-    .card {
-      width: 90%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-    .card.active { display: block; }
-    h1 { margin-top: 0; }
-    .tag {
-      display: inline-block;
-      background: #ffe6eb;
-      color: #d6336c;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 30px;
-      background: #e63946;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .row { display: flex; gap: 10px; }
-    .secondary {
-      background: #f1f1f1;
-      color: #333;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Patient Case – Valentine Edition ❤️</title>
+<style>
+body {
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg, #fbc2eb, #f9d423);
+  font-family:'Segoe UI', sans-serif;
+  overflow:hidden;
+}
+.card {
+  width:90%;
+  max-width:420px;
+  background:#fff;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  display:none;
+  animation:fadeIn 0.4s ease;
+}
+.card.active {display:block;}
+h1 {margin-top:0;}
+.tag {
+  display:inline-block;
+  background:#ffe6eb;
+  color:#d6336c;
+  padding:4px 10px;
+  border-radius:12px;
+  font-size:12px;
+  margin-bottom:12px;
+}
+button {
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  border:none;
+  border-radius:30px;
+  background:#e63946;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+.row {display:flex; gap:10px;}
+.secondary {background:#f1f1f1; color:#333;}
+.warning {margin-top:14px; color:#d6336c; font-weight:bold;}
+.disabled {color:#999;}
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
+</style>
 </head>
 <body>
 
-  <!-- PAGE 1 -->
-  <div class="card active">
-    <h1>Patient Case File</h1>
-    <span class="tag">Confidential</span>
-    <p><strong>Patient:</strong> One (1) very lucky boyfriend</p>
-    <p><strong>Attending Physician:</strong> Shweta Sarthy 🩺</p>
-    <button onclick="goNext()">Open Case</button>
-  </div>
+<div class="card active" id="page1">
+<h1>Patient Case File</h1>
+<span class="tag">Confidential</span>
+<p><strong>Patient:</strong> One very lucky boyfriend</p>
+<p><strong>Attending Physician:</strong> Dr. Akanksha Raidas 🩺</p>
+<button id="openCaseBtn">Open Case</button>
+</div>
 
-  <!-- PAGE 2 -->
-  <div class="card">
-    <h1>Chief Complaint</h1>
-    <span class="tag">Ongoing</span>
-    <p>Persistent warmth in the chest area when thinking about one incredibly intelligent, kind, and beautiful future doctor.</p>
-    <button onclick="goNext()">Review Symptoms</button>
-  </div>
+<div class="card" id="page2">
+<h1>Chief Complaint</h1>
+<span class="tag">Ongoing</span>
+<p>Persistent warmth in the chest area spreading beyond expected anatomical boundaries😉</p>
+<p>Accompanied by rapid heartbeat, shallow breathing, intrusive thoughts and a strong, unprofessional urge to be dangerously close to one extraordinarily intelligent, kind, and sinfully hot individual</p>
+<p>Heightened sensitivity, symptoms intensify with imagination and are impossible to suppress</p>
+<button id="reviewSymptomsBtn">Review Symptoms</button>
+</div>
 
-    <!-- PAGE 3 -->
-  <div class="card">
-    <h1>Symptoms</h1>
-    <span class="tag">Entered by Physician</span>
-    <p><em>Clinical observations recorded during consultation:</em></p>
+<div class="card" id="page3">
+<h1>Symptoms</h1>
+<p>From what I have seen these are the current symptoms:</p>
+<li>Smiling for no reason</li>
+<li>Feeling calm just by hearing your voice</li>
+<li>Wanting to share every good moment with you</li>
+<li>Certainty that you are my favorite person</li>
+<li><em>goes on...</em></li>
+<p>But do not believe me... I may be already delusional... giving myself all to you</p>
+<p><em>Clinical observations recorded during consultation:</em></p>
+<textarea id="doctorNotes" placeholder="Enter clinical observations here..." style="width:100%;height:120px;border-radius:12px;padding:12px;border:1px solid #ddd;"></textarea>
+<button id="saveNotesBtn">Save Clinical Notes 🩺</button>
+</div>
 
-    <textarea id="doctorNotes"
-      placeholder="Enter clinical observations here..."
-      style="width:100%;height:120px;border-radius:12px;padding:12px;border:1px solid #ddd;resize:none;"></textarea>
+<div class="card" id="page4">
+<h1>Assessment</h1>
+<span class="tag">Stable</span>
+<p>Choose the most appropriate clinical conclusion:</p>
+<div>
+<input type="radio" name="assessment" id="distance" value="distance">
+<label id="distanceLabel" for="distance">Professional Distance</label>
+</div>
+<div>
+<input type="radio" name="assessment" id="emotion" value="emotion">
+<label for="emotion">Emotional Involvement</label>
+</div>
+<div id="guardMessage" class="warning" style="display:none;"></div>
+<div class="row">
+<button class="secondary" id="reconsiderBtn" style="display:none;">Wanna reconsider</button>
+<button id="confirmAssessmentBtn">Confirm Assessment</button>
+</div>
+</div>
 
-    <button onclick="saveSymptoms()">Save Clinical Notes 🩺</button>
-  </div>
+<div class="card" id="page5">
+<h1>Final Recommendation</h1>
+<span class="tag">High Priority</span>
+<p>Proceed with Valentine’s Day together.</p>
+<p>Laugh a lot.</p>
+<p>Eat something good with patient.</p>
+<p><strong>Will you be Patient’s Valentine?</strong></p>
+<button id="finalRecommendationBtn">Final Recommendation</button>
+</div>
 
-  <!-- PAGE 4 -->
-  <div class="card">
-    <h1>Assessment</h1>
-    <span class="tag">Stable</span>
-    <p>Condition appears chronic and irreversible.</p>
-    <p>Patient reports feeling safe, supported, and genuinely happy in your presence.</p>
-    <button onclick="goNext()">Final Recommendation</button>
-  </div>
+<div class="card" id="page6">
+<h1>Case Closed</h1>
+<span class="tag">Approved</span>
+<p>Recommendation accepted.</p>
+<p>Prognosis: <strong>Extremely good.</strong></p>
+<p>Thank you, Doctor ❤️</p>
+</div>
 
-  <!-- PAGE 5 -->
-  <div class="card">
-    <h1>Final Recommendation</h1>
-    <span class="tag">High Priority</span>
-    <p>Proceed with Valentine’s Day together.</p>
-    <p>Laugh a lot.</p>
-    <p>Eat something good with patient.</p>
-    <p><strong>Will you be Patient’s Valentine?</strong></p>
-    <div class="row">
-      <button onclick="accept()">Accept ❤️</button>
-      <button class="secondary" onclick="reject()">Reject ❌</button>
-    </div>
-  </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  <!-- PAGE 6 -->
-  <div class="card" id="reject">
-    <h1>Error 404: Option Not Found</h1>
-    <span class="tag">Action Forbidden</span>
-    <p>Rejection is not supported for this patient.</p>
-    <p>Please reconsider and continue treatment with kindness ❤️</p>
-    <button onclick="goBack()">Reconsider ❤️</button>
-  </div>
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyByua7GE9rFgaVB_rt5AbUMbMvVLLOV-pc",
+  authDomain: "valentine-30518.firebaseapp.com",
+  projectId: "valentine-30518"
+};
+initializeApp(firebaseConfig);
+const db = getFirestore();
 
-  <!-- PAGE 7 -->
-    <!-- PAGE 7 -->
-  <div class="card" id="accept">
-    <h1>Case Closed</h1>
-    <span class="tag">Approved</span>
-    <p>Recommendation accepted.</p>
-    <p>Prognosis: <strong>Extremely good.</strong></p>
-    <p>Thank you, Doctor ❤️</p>
-    <button onclick="showPrescription()">View Treatment Plan</button>
-  </div>
+const cards = document.querySelectorAll('.card');
+let index = 0;
+let selectedAssessment = null;
+let distanceClicks = 0;
+let distanceDisabled = false;
 
-  <!-- PAGE 8 : PRESCRIPTION -->
-  <div class="card" id="prescription">
-    <h1>💊 Love Prescription</h1>
-    <span class="tag">Valid for Lifetime</span>
-    <p><strong>Patient Name:</strong> Us 💑</p>
-    <p><strong>Prescribed By:</strong> Dr. Shweta Sarthy 🩺</p>
-    <hr />
-    <p>✔ 2 hugs daily (minimum)</p>
-    <p>✔ 1 long conversation before sleep</p>
-    <p>✔ Unlimited smiles & teasing</p>
-    <p>✔ Food dates as required 🍕🍨</p>
-    <p>✔ Hand-holding during walks</p>
-    <hr />
-    <p><strong>Side Effects:</strong> Happiness, comfort, addiction 😌</p>
-    <p><strong>Refill:</strong> Automatically renewed forever ♾️</p>
-    <button onclick="restart()">Restart Case 🔁</button>
-  </div>
+function show(i){
+  cards[index].classList.remove('active');
+  index = i;
+  cards[index].classList.add('active');
+}
 
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+document.getElementById('openCaseBtn').addEventListener('click', ()=>show(1));
+document.getElementById('reviewSymptomsBtn').addEventListener('click', ()=>show(2));
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyByua7GE9rFgaVB_rt5AbUMbMvVLLOV-pc",
-    authDomain: "valentine-30518.firebaseapp.com",
-    projectId: "valentine-30518",
-    storageBucket: "valentine-30518.firebasestorage.app",
-    messagingSenderId: "984668185645",
-    appId: "1:984668185645:web:0e8ca0cdfcba9c2e7084a4"
-  };
+document.getElementById('saveNotesBtn').addEventListener('click', async ()=>{
+  const notes = document.getElementById('doctorNotes').value.trim();
+  if(!notes){ alert('Please enter notes'); return;}
+  try{
+    await addDoc(collection(db,'symptoms'), {notes, createdAt: serverTimestamp()});
+  }catch(e){ console.error(e); alert('Error saving notes'); return;}
+  show(3);
+});
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+document.getElementById('confirmAssessmentBtn').addEventListener('click', ()=>{
+  const selected = document.querySelector('input[name="assessment"]:checked');
+  const guard = document.getElementById('guardMessage');
+  const reconsider = document.getElementById('reconsiderBtn');
+  if(!selected){ alert('Please select an option'); return;}
+  if(selected.value==='distance' && distanceDisabled){ alert('Professional Distance not allowed'); return;}
+  selectedAssessment = selected.value;
+  if(selectedAssessment==='distance'){
+    guard.style.display='block';
+    guard.innerText='System Warning: Distance may worsen the condition.';
+    reconsider.style.display='block';
+    return;
+  }
+  show(4);
+});
 
-  const cards = document.querySelectorAll('.card:not(#reject):not(#accept):not(#prescription)');
-  let index = 0;
+document.getElementById('reconsiderBtn').addEventListener('click', ()=>{
+  document.getElementById('guardMessage').style.display='none';
+  document.getElementById('reconsiderBtn').style.display='none';
+  document.getElementById('distance').checked=false;
+  selectedAssessment=null;
+});
 
-  window.goNext = function () {
-    if (index < cards.length - 1) {
-      cards[index].classList.remove('active');
-      index++;
-      cards[index].classList.add('active');
-    }
-  };
-
-  window.reject = function () {
-    cards[index].classList.remove('active');
-    document.getElementById('reject').classList.add('active');
-  };
-
-  window.accept = function () {
-    cards[index].classList.remove('active');
-    document.getElementById('accept').classList.add('active');
-  };
-
-  window.goBack = function () {
-    document.getElementById('reject').classList.remove('active');
-    cards[index].classList.add('active');
-  };
-
-  window.showPrescription = function () {
-    document.getElementById('accept').classList.remove('active');
-    document.getElementById('prescription').classList.add('active');
-  };
-
-  window.restart = function () {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-    index = 0;
-    cards[index].classList.add('active');
-  };
-
-  window.saveSymptoms = async function () {
-    const notes = document.getElementById('doctorNotes').value.trim();
-
-    if (!notes) {
-      alert('Please enter clinical notes 🩺');
+document.getElementById('finalRecommendationBtn').addEventListener('click', ()=>{
+  const guard=document.getElementById('guardMessage');
+  if(selectedAssessment==='distance'){
+    distanceClicks++;
+    if(distanceClicks===1) guard.innerText='Come on baby';
+    else if(distanceClicks===2) guard.innerText='Please';
+    else if(distanceClicks===3) guard.innerText='Okay… last chance.';
+    else{
+      distanceDisabled=true;
+      document.getElementById('distance').disabled=true;
+      document.getElementById('distanceLabel').classList.add('disabled');
+      distanceClicks=0;
+      document.getElementById('guardMessage').style.display='none';
+      document.getElementById('reconsiderBtn').style.display='none';
       return;
     }
-
-    try {
-      await addDoc(collection(db, 'symptoms'), {
-        notes: notes,
-        createdAt: serverTimestamp(),
-        source: 'doctor-entry'
-      });
-
-      alert('Clinical notes securely saved ❤️');
-      goNext();
-    } catch (e) {
-      console.error(e);
-      alert('Error saving notes 😢');
-    }
-  };
+    return;
+  }
+  show(5);
+});
 </script>
 
 </body>
