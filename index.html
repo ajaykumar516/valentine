@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Patient Case – Valentine Edition ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Patient Case ❤️</title>
 <style>
 body {
   margin:0;
@@ -11,8 +11,8 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg, #fbc2eb, #f9d423);
-  font-family:'Segoe UI', sans-serif;
+  background:linear-gradient(135deg,#fbc2eb,#f9d423);
+  font-family:'Segoe UI',sans-serif;
   overflow:hidden;
 }
 .card {
@@ -24,42 +24,29 @@ body {
   box-shadow:0 20px 40px rgba(0,0,0,0.2);
   display:none;
   animation:fadeIn 0.4s ease;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
 }
-.card.active {display:block;}
-h1 {margin-top:0;}
-.tag {
-  display:inline-block;
-  background:#ffe6eb;
-  color:#d6336c;
-  padding:4px 10px;
-  border-radius:12px;
-  font-size:12px;
-  margin-bottom:12px;
+.card.active {
+  display:block;
+  transform: translateY(0);
 }
-button {
-  width:100%;
-  padding:14px;
-  margin-top:20px;
-  border:none;
-  border-radius:30px;
-  background:#e63946;
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
-}
-.row {display:flex; gap:10px;}
-.secondary {background:#f1f1f1; color:#333;}
-.warning {margin-top:14px; color:#d6336c; font-weight:bold;}
-.disabled {color:#999;}
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(10px);}
-  to {opacity:1; transform:translateY(0);}
-}
+h1{margin-top:0;}
+.tag{display:inline-block;background:#ffe6eb;color:#d6336c;padding:4px 10px;border-radius:12px;font-size:12px;margin-bottom:12px;}
+button{width:100%;padding:14px;margin-top:20px;border:none;border-radius:30px;background:#e63946;color:#fff;font-size:16px;cursor:pointer;transition:0.2s;}
+button:hover{opacity:0.9;}
+.row{display:flex;gap:10px;}
+.secondary{background:#f1f1f1;color:#333;}
+.warning{margin-top:14px;color:#d6336c;font-weight:bold;}
+.disabled{color:#999;}
+textarea{resize:none;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
 
-<div class="card active" id="page1">
+<!-- PAGE 1 -->
+<div class="card active">
 <h1>Patient Case File</h1>
 <span class="tag">Confidential</span>
 <p><strong>Patient:</strong> One very lucky boyfriend</p>
@@ -67,32 +54,34 @@ button {
 <button id="openCaseBtn">Open Case</button>
 </div>
 
-<div class="card" id="page2">
+<!-- PAGE 2 -->
+<div class="card">
 <h1>Chief Complaint</h1>
 <span class="tag">Ongoing</span>
-<p>Persistent warmth in the chest area spreading beyond expected anatomical boundaries😉</p>
+<p>Persistent warmth in the chest area spreading beyond expected anatomical boundaries 😉</p>
 <p>Accompanied by rapid heartbeat, shallow breathing, intrusive thoughts and a strong, unprofessional urge to be dangerously close to one extraordinarily intelligent, kind, and sinfully hot individual</p>
-<p>Heightened sensitivity, symptoms intensify with imagination and are impossible to suppress</p>
 <button id="reviewSymptomsBtn">Review Symptoms</button>
 </div>
 
-<div class="card" id="page3">
+<!-- PAGE 3 -->
+<div class="card">
 <h1>Symptoms</h1>
-<p>From what I have seen these are the current symptoms:</p>
-<li>Smiling for no reason</li>
-<li>Feeling calm just by hearing your voice</li>
-<li>Wanting to share every good moment with you</li>
-<li>Certainty that you are my favorite person</li>
-<li><em>goes on...</em></li>
-<p>But do not believe me... I may be already delusional... giving myself all to you</p>
-<p><em>Clinical observations recorded during consultation:</em></p>
+<p>According to me these are the current symptoms:</p>
+<li>Anticipation, tension, and a complete surrender of restraint</li>
+<li>loss of composure and focus</li>
+<li>patient shows zero intent to recover</li>
+<li>constant craving for closeness and condition intensifies in silence</li>
+
+<p><em>but don't believe me.... I may be already delusional... so all in your hands... </em></p>
+<p>Clinical observations recorded:</p>
+<span class="tag">Entered by Physician</span>
 <textarea id="doctorNotes" placeholder="Enter clinical observations here..." style="width:100%;height:120px;border-radius:12px;padding:12px;border:1px solid #ddd;"></textarea>
 <button id="saveNotesBtn">Save Clinical Notes 🩺</button>
 </div>
 
-<div class="card" id="page4">
+<!-- PAGE 4: ASSESSMENT -->
+<div class="card">
 <h1>Assessment</h1>
-<span class="tag">Stable</span>
 <p>Choose the most appropriate clinical conclusion:</p>
 <div>
 <input type="radio" name="assessment" id="distance" value="distance">
@@ -104,110 +93,222 @@ button {
 </div>
 <div id="guardMessage" class="warning" style="display:none;"></div>
 <div class="row">
-<button class="secondary" id="reconsiderBtn" style="display:none;">Wanna reconsider</button>
+<button class="secondary" id="reconsiderBtn" style="display:none;">Wanna Reconsider</button>
 <button id="confirmAssessmentBtn">Confirm Assessment</button>
 </div>
 </div>
 
-<div class="card" id="page5">
+<!-- PAGE 5: FINAL RECOMMENDATION -->
+<div class="card" id="finalRecommendationPage">
 <h1>Final Recommendation</h1>
 <span class="tag">High Priority</span>
-<p>Proceed with Valentine’s Day together.</p>
-<p>Laugh a lot.</p>
-<p>Eat something good with patient.</p>
-<p><strong>Will you be Patient’s Valentine?</strong></p>
-<button id="finalRecommendationBtn">Final Recommendation</button>
+<p><em>Based on clinical findings and emotional indicators, the following activities are strongly recommended</em></p>
+<p>Select your preferrences:</p>
+<div>
+<input type="checkbox" id="optionValentine" value="Be my Valentine">
+<label for="optionValentine">Be my Valentine ❤️</label>
+</div>
+<div>
+<input type="checkbox" id="optionFood" value="Eat something good with patient">
+<label for="optionFood">Eat something good with patient 🍕</label>
+</div>
+<div>
+<input type="checkbox" id="optionConversation" value="Long conversation">
+<label for="optionConversation">Long, unhurried conversation 🌙</label>
+</div>
+<div>
+<input type="checkbox" id="optionHandHolding" value="Hand-holding">
+<label for="optionHandHolding">Hand-holding (as required) 🤝</label>
+</div>
+<div class="row">
+<button id="acceptBtn">Accept ❤️</button>
+<button class="secondary" id="rejectBtn">Reject ❌</button>
+</div>
 </div>
 
-<div class="card" id="page6">
+<!-- PAGE 6: REJECT -->
+<div class="card" id="reject">
+<h1>Error 404: Option Not Found</h1>
+<span class="tag">Action Forbidden</span>
+<p>Rejection is not supported for this patient.</p>
+<p>Please reconsider and continue treatment with kindness ❤️</p>
+<button id="goBackBtn">Reconsider ❤️</button>
+</div>
+
+<!-- PAGE 7: ACCEPT -->
+<div class="card" id="accept">
 <h1>Case Closed</h1>
 <span class="tag">Approved</span>
 <p>Recommendation accepted.</p>
 <p>Prognosis: <strong>Extremely good.</strong></p>
 <p>Thank you, Doctor ❤️</p>
+<button id="viewPrescriptionBtn">View Treatment Plan</button>
+</div>
+
+<!-- PAGE 8: PRESCRIPTION -->
+<div class="card" id="prescription">
+<h1>💊 Love Prescription</h1>
+<span class="tag">Valid for Lifetime</span>
+<p><strong>Patient:</strong> Your Favorite Person</p>
+<p><strong>Prescribed By:</strong> Dr. Akanksha Raidas 🩺</p>
+<hr/>
+<div id="prescriptionOptions"></div>
+<hr/>
+<p><strong>Side Effects:</strong> Happiness, comfort, addiction 😌</p>
+<p><strong>Refill:</strong> Automatically renewed forever ♾️</p>
+<button id="restartBtn">Restart Case 🔁</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyByua7GE9rFgaVB_rt5AbUMbMvVLLOV-pc",
-  authDomain: "valentine-30518.firebaseapp.com",
-  projectId: "valentine-30518"
-};
+// Firebase
+const firebaseConfig = { apiKey:"AIzaSyByua7GE9rFgaVB_rt5AbUMbMvVLLOV-pc", authDomain:"valentine-30518.firebaseapp.com", projectId:"valentine-30518" };
 initializeApp(firebaseConfig);
 const db = getFirestore();
 
-const cards = document.querySelectorAll('.card');
-let index = 0;
-let selectedAssessment = null;
-let distanceClicks = 0;
-let distanceDisabled = false;
+// Cards
+const cards = document.querySelectorAll('.card:not(#reject):not(#accept):not(#prescription)');
+let index=0;
+let selectedAssessment=null;
+let distanceClicks=0;
+let distanceDisabled=false;
 
+// Navigation
+document.getElementById('openCaseBtn').addEventListener('click',()=>show(1));
+document.getElementById('reviewSymptomsBtn').addEventListener('click',()=>show(2));
+document.getElementById('saveNotesBtn').addEventListener('click', async ()=>{
+  const notes = document.getElementById('doctorNotes').value.trim();
+  if(!notes){ alert('Please enter clinical notes 🩺'); return; }
+  try{
+    await addDoc(collection(db,'symptoms'),{notes,createdAt:serverTimestamp()});
+    alert('Clinical notes saved ❤️'); 
+    show(3);
+  } catch(e){ console.error(e); alert('Error saving notes 😢'); }
+});
+
+// Show card function
 function show(i){
   cards[index].classList.remove('active');
-  index = i;
+  index=i;
   cards[index].classList.add('active');
 }
 
-document.getElementById('openCaseBtn').addEventListener('click', ()=>show(1));
-document.getElementById('reviewSymptomsBtn').addEventListener('click', ()=>show(2));
+// Assessment logic
+const confirmBtn = document.getElementById('confirmAssessmentBtn');
+const reconsiderBtn = document.getElementById('reconsiderBtn');
+const guardMessage = document.getElementById('guardMessage');
 
-document.getElementById('saveNotesBtn').addEventListener('click', async ()=>{
-  const notes = document.getElementById('doctorNotes').value.trim();
-  if(!notes){ alert('Please enter notes'); return;}
-  try{
-    await addDoc(collection(db,'symptoms'), {notes, createdAt: serverTimestamp()});
-  }catch(e){ console.error(e); alert('Error saving notes'); return;}
-  show(3);
-});
-
-document.getElementById('confirmAssessmentBtn').addEventListener('click', ()=>{
+confirmBtn.addEventListener('click', ()=>{
   const selected = document.querySelector('input[name="assessment"]:checked');
-  const guard = document.getElementById('guardMessage');
-  const reconsider = document.getElementById('reconsiderBtn');
-  if(!selected){ alert('Please select an option'); return;}
-  if(selected.value==='distance' && distanceDisabled){ alert('Professional Distance not allowed'); return;}
-  selectedAssessment = selected.value;
-  if(selectedAssessment==='distance'){
-    guard.style.display='block';
-    guard.innerText='System Warning: Distance may worsen the condition.';
-    reconsider.style.display='block';
+  if(!selected){ alert('Please select an assessment'); return; }
+
+  if(selected.value==='distance' && distanceDisabled){
+    alert('Distance disabled. Select Emotional Involvement');
     return;
   }
-  show(4);
+
+  selectedAssessment = selected.value;
+
+  if(selectedAssessment==='distance'){
+    if(distanceClicks === 0){
+      guardMessage.style.display='block';
+      guardMessage.innerText='System Warning: Distance may worsen the condition.';
+      reconsiderBtn.style.display='inline-block';
+      confirmBtn.innerText='Final Recommendation';
+      distanceClicks++;
+      return;
+    }
+
+    if(distanceClicks === 1) guardMessage.innerText='Please… distance won’t save you 😌';
+    else if(distanceClicks === 2) guardMessage.innerText='don’t be that professional 😏';
+    else if(distanceClicks === 3) guardMessage.innerText='Last Chance... you know this isn’t what you want 💞';
+    else {
+      distanceDisabled = true;
+      document.getElementById('distance').disabled = true;
+      document.getElementById('distanceLabel').classList.add('disabled');
+      distanceClicks = 0;
+      guardMessage.style.display='none';
+      reconsiderBtn.style.display='none';
+      confirmBtn.innerText='Confirm Assessment';
+      show(index);
+      return;
+    }
+    distanceClicks++;
+    return;
+  }
+
+  // Emotional Involvement: directly go to Final Recommendation
+  if(selectedAssessment==='emotion'){
+    showFinalRecommendation();
+  }
 });
 
-document.getElementById('reconsiderBtn').addEventListener('click', ()=>{
-  document.getElementById('guardMessage').style.display='none';
-  document.getElementById('reconsiderBtn').style.display='none';
+// Reconsider
+reconsiderBtn.addEventListener('click', ()=>{
+  guardMessage.style.display='none';
+  reconsiderBtn.style.display='none';
+  confirmBtn.innerText='Confirm Assessment';
   document.getElementById('distance').checked=false;
   selectedAssessment=null;
 });
 
-document.getElementById('finalRecommendationBtn').addEventListener('click', ()=>{
-  const guard=document.getElementById('guardMessage');
-  if(selectedAssessment==='distance'){
-    distanceClicks++;
-    if(distanceClicks===1) guard.innerText='Come on baby';
-    else if(distanceClicks===2) guard.innerText='Please';
-    else if(distanceClicks===3) guard.innerText='Okay… last chance.';
-    else{
-      distanceDisabled=true;
-      document.getElementById('distance').disabled=true;
-      document.getElementById('distanceLabel').classList.add('disabled');
-      distanceClicks=0;
-      document.getElementById('guardMessage').style.display='none';
-      document.getElementById('reconsiderBtn').style.display='none';
-      return;
-    }
-    return;
-  }
-  show(5);
+// Function to show Final Recommendation
+function showFinalRecommendation(){
+  cards[index].classList.remove('active');
+  document.getElementById('finalRecommendationPage').classList.add('active');
+}
+
+// Accept button logic with selected options
+document.getElementById('acceptBtn').addEventListener('click',()=>{
+  const selectedOptions = [];
+  const checkboxes = document.querySelectorAll('#finalRecommendationPage input[type="checkbox"]:checked');
+  checkboxes.forEach(cb => selectedOptions.push(cb.value));
+
+  // Fill prescription options dynamically
+  const prescriptionDiv = document.getElementById('prescriptionOptions');
+  prescriptionDiv.innerHTML = '';
+  selectedOptions.forEach(opt => {
+    const p = document.createElement('p');
+    p.textContent = `✔ ${opt}`;
+    prescriptionDiv.appendChild(p);
+  });
+
+  // Ensure previous cards are hidden
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.getElementById('accept').classList.add('active');
+});
+
+// Reject button
+document.getElementById('rejectBtn').addEventListener('click',()=>{
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.getElementById('reject').classList.add('active');
+});
+
+// Go back from reject
+document.getElementById('goBackBtn').addEventListener('click',()=>{
+  document.getElementById('reject').classList.remove('active'); 
+  cards[index].classList.add('active');
+});
+
+// View prescription
+document.getElementById('viewPrescriptionBtn').addEventListener('click',()=>{
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.getElementById('prescription').classList.add('active');
+});
+
+// Restart
+document.getElementById('restartBtn').addEventListener('click',()=>{
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  index=0;
+  cards[index].classList.add('active');
+  distanceDisabled=false;
+  document.getElementById('distance').disabled=false;
+  document.getElementById('distanceLabel').classList.remove('disabled');
+  confirmBtn.innerText='Confirm Assessment';
+  document.querySelectorAll('#finalRecommendationPage input[type="checkbox"]').forEach(cb=>cb.checked=false);
 });
 </script>
-
 </body>
 </html>
